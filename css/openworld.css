@@ -1,0 +1,9 @@
+.ow-wblogo-big {
+    height: 200px;
+    width: 200px;
+    margin-right: 30px;
+}
+
+.ow-wblogo-big + div {
+    display: inline-block;
+}
