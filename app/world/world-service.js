@@ -20,8 +20,12 @@ angular.module('openworld.world.service', ['openworld.utils'])
         factory.flag = function(name) {
             var flagInfoUri = 'http://en.wikipedia.org/w/api.php?action=query&titles=Image:Flag_of_' + name + '.svg&prop=imageinfo&iiprop=url&format=json&callback=JSON_CALLBACK';
             return $http.jsonp(flagInfoUri).then(function(flagInfoData) {
-                var flagImgUri = flagInfoData.data.query.pages["-1"].imageinfo[0].url;
-                return flagImgUri;
+                var jjpet = require('jjpet');
+                var m = jjpet.compile('**/{"url":(?<url>_)}');
+                var res = jjpet.run(flagInfoData.data, m);
+                if (res.status) {
+                    return res.captures.url[0]; // <== 
+                }
             });
         };
 	return factory;
